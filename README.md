@@ -46,3 +46,61 @@ Then we get bean in main of App:
         System.out.println(theCoach.getDailyWorkout());
 ...
 ```
+
+## Inject Dependency by annotation @Autowire
+
+### Setup
+#### Create Interface
+We will create an interface which we will use for injecting to Client class
+```
+package com.sang;
+
+public interface FortuneService {
+    String getFortune();
+}
+```
+
+#### Create Class
+Then we create class which implements FortuneService and mark as Component for scanning by annotation @Component
+```
+package com.sang;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class FortuneServiceImpl implements FortuneService{
+    @Override
+    public String getFortune() {
+        return "Today is your lucky day";
+    }
+}
+```
+### In constructor
+We create constructor in class which has field need inject dependency and mark annotation @Autowire in constructor, it will get the class which implement:
+
+```
+package com.sang;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class TennisCoach implements Coach{
+    private FortuneService fortuneService;
+
+    @Autowired
+    public TennisCoach(FortuneService fortuneService) {
+        this.fortuneService = fortuneService;
+    }
+
+    @Override
+    public String getDailyWorkout() {
+        return "Practice your backhand volley";
+    }
+
+    @Override
+    public String getDailyFortune() {
+        return fortuneService.getFortune();
+    }
+}
+```

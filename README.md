@@ -148,3 +148,38 @@ If we have many Class for inject to interface Injection we can use annotation @Q
     private FortuneService fortuneService;
 ...
 ```
+
+Noted: If we use @Qualifier in constructor, we must place it inside the constructor argument. Reference: https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#beans-autowired-annotation-qualifiers 
+
+## Default bean name
+In general, when using Annotations, for the default bean name, Spring uses the following rule.
+
+If the annotation's value doesn't indicate a bean name, an appropriate name will be built based on the short name of the class (with the first letter lower-cased).
+
+However, for the special case of when BOTH the first and second characters of the class name are upper case, then the name is NOT converted.
+
+For the case of RESTFortuneService
+
+RESTFortuneService --> RESTFortuneService
+
+Read more: https://docs.oracle.com/javase/8/docs/api/java/beans/Introspector.html#decapitalize(java.lang.String).
+
+## Inject value from properties file by annotation
+We can use annotation @Value("${properties.field}") to inject value. Ex: In properties file:
+```
+foo.email=test@gmail.com
+foo.team=arsenal
+```
+
+In the class we want to inject:
+```
+...
+@Value("${foo.email}")
+private String email;
+    
+@Value("${foo.team}")
+private String team;
+...
+```
+
+

@@ -138,3 +138,13 @@ Width field injection, we don't need any constructor inject tion or setter injec
 private FortuneService fortuneService;
 ...
 ```
+
+## With multiple bean can be injected to dependency
+If we have many Class for inject to interface Injection we can use annotation @Qualifier("id") under @Autowire with id of bean we want to inject.
+```
+...
+    @Autowired
+    @Qualifier("fortuneServiceImpl")
+    private FortuneService fortuneService;
+...
+```

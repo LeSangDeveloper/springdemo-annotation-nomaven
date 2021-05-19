@@ -182,4 +182,33 @@ private String team;
 ...
 ```
 
+## Scope and lifecycle of bean
+### Default Scope
+If we don't declare scope of bean, it will be a singletone, mean by id we just have only one instance of that bean all of runtime.
+
+### Annotation Scope
+We can declare scope of bean by marking annoation @Scope on class of bean like:
+```
+...
+@Component
+@Scope("prototype")
+public class FotuneServiceImpl {
+...
+```
+
+### @PostContruct and @PreDestroy
+we can use them to mark method we want to be called just after a bean is construct or before it destroy. Those methods can named any name, return any type (should be void) and must not have param.
+```
+...
+@PostConstruct
+private void doSomethingAfterConstruct() {
+}
+
+@PreDestroy
+private void doSomethingBeforeDestroy() {
+}
+...
+```
+Note: in java9 or higher cannot find those annotations, we must install lib and install it: https://search.maven.org/remotecontent?filepath=javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+
 

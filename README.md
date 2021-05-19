@@ -104,3 +104,37 @@ public class TennisCoach implements Coach{
     }
 }
 ```
+
+Note: As of Spring Framework 4.3, an @Autowired annotation on such a constructor is no longer necessary if the target bean only defines one constructor to begin with. However, if several constructors are available, at least one must be annotated to teach the container which one to use.
+
+### In setter
+
+Like constructor, we can mark as setter method annotation @Autowire and Object Factory will find FotuneService and assign it to field of object which need FortuneService as dependency.
+```
+    public TennisCoach() {}
+
+    @Autowired
+    public void setFortuneService(FortuneService fortuneService) {
+        this.fortuneService = fortuneService;
+    }
+```
+
+### In any method
+
+Like setter, we can mark any method as @Autowire and Object Factory work as inject constructor or setter.
+```
+...
+@Autowire
+public void anyMethod(FortuneService fortuneService) {
+    this.fortuneService = fortuneService;
+}
+...
+```
+### In a field
+Width field injection, we don't need any constructor inject tion or setter injection.
+```
+...
+@Autowire
+private FortuneService fortuneService;
+...
+```
